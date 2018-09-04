@@ -1,0 +1,51 @@
+import random
+import matplotlib.pyplot as plt
+print('Введите количество опытов:')
+n=int(input())
+print('Введите процент годности деталей для первой партии:')
+x1=float(int(input())/100)
+print('Введите процент годности деталей для второй партии:')
+x2=float(int(input())/100)
+print('Введите процент годности деталей для третьей партии:')
+x3=float(int(input())/100)
+print('Введите кол-во деталей первой партии (соотношение партий 1:2:3): ')
+y1=int(input())
+y2=y1*2
+y3=y1*3
+y=y1+y2+y3
+k=0
+z1=int(round(y1*(1-x1)))
+z2=int(round(y2*(1-x2)))
+z3=int(round(y3*(1-x3)))
+print('Количество негодных деталей по партиям:', z1, z2, z3)
+z=z1+z2+z3
+print('Вероятность выбрать бракованную деталь:', z/y)
+i=0
+while i<=n:
+    brak=random.randint(1,z)
+    i=i+1
+    if brak<=z2:
+        k=k+1
+print('Вероятность принадлежности брака ко второй партии:', k/n)
+count1=0
+count2=0
+count3=0
+i=0
+while i<=n:
+    brak2=random.randint(1,n)
+    if brak2<=z1:
+        count1=count1+1
+    if brak2>=z1 and brak2<=(z1+z2):
+        count2=count2+1
+    if brak2>=(z1+z2) and brak2<=(z):
+        count3=count3+1
+    i=i+1
+print(count1,count2,count3)
+width = 0.25
+plt.bar(1, y1)
+plt.bar(1, count1)
+plt.bar(2, y2)
+plt.bar(2, count2)
+plt.bar(3, y3)
+plt.bar(3, count3)
+plt.show()
